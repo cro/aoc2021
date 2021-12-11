@@ -10,9 +10,14 @@ defmodule AdventOfCode.Utils do
     ftext
   end
 
-  def parse_file(ftext) do
+  def parse_file_to_lines(ftext) do
     ftext
     |> String.split("\n", trim: true)
+  end
+
+  def parse_file(ftext) do
+    ftext
+    |> parse_file_to_lines
     |> Enum.map(fn x -> x |> String.to_integer() end)
   end
 
@@ -24,7 +29,7 @@ defmodule AdventOfCode.Utils do
 
   def parse_one_directionline(line) do
     onedir = line |> String.split()
-    magnitude = Enum.at(onedir, 1) |> String.to_integer
+    magnitude = Enum.at(onedir, 1) |> String.to_integer()
     {Enum.at(onedir, 0), magnitude}
   end
 
@@ -32,5 +37,16 @@ defmodule AdventOfCode.Utils do
     ftext
     |> String.split("\n", trim: true)
     |> Enum.map(fn x -> x |> parse_one_directionline end)
+  end
+
+  def parse_bits(line) do
+    Regex.scan(~r/./, line)
+    |> Enum.map(fn x -> x |> hd |> String.to_integer() end)
+  end
+
+  def transpose(rows) do
+    rows
+    |> List.zip()
+    |> Enum.map(&Tuple.to_list/1)
   end
 end
