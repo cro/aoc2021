@@ -1,5 +1,6 @@
 defmodule AdventOfCode.Day03 do
   use AdventOfCode
+  alias Utils
 
   @moduledoc """
   #{ readme("resources/day03/README.md") }
@@ -16,7 +17,11 @@ defmodule AdventOfCode.Day03 do
     IO.puts("Result: #{part_two(input)}")
   end
 
-  def part_one(_args) do
+  def part_one(input) do
+    input
+    |> parse_file
+    |> parse_bits
+    |> transpose
   end
 
   def part_two(_args) do
